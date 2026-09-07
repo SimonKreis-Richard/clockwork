@@ -1,0 +1,56 @@
+# This file is the machine readable definition of what counts as client material, which is why it
+# is commented at length: getting it wrong is the one mistake in this project that cannot be undone
+# by editing a file afterwards.
+#
+# Client derived assets (IQP exports, converted blueprints, data profiles) no longer live here at
+# all: they sit in a workspace directory outside the repository, pointed at by BLUEPRINT_WORKSPACE.
+# The rules below are guards, in case any of them is ever recreated in place by mistake.
+#
+# All project level rules are ANCHORED with a leading slash on purpose. An unanchored pattern such
+# as `blueprints/` matches at any depth and would also swallow `selftest/blueprints/`, which must
+# be kept. And the `/*` form is required for a `!` exception to work at all, because git does not
+# descend into an excluded directory. Verify with `git check-ignore`, never by reading.
+/iqp-data-extract/
+/iqp-exports/
+/exports/
+/blueprints/*
+/data/*
+
+# Secrets and session material.
+#
+# The captured session (npm run auth) is cookies belonging to a signed in user: exactly as
+# sensitive as the password, and the reason there is no password anywhere else in this project.
+# The pattern is deliberately unanchored so it catches the file wherever anyone puts it.
+.env
+.env.*
+!.env.example
+storageState*.json
+/.auth/
+/auth/
+
+# Runtime artifacts. Traces and HAR files can contain session tokens, and the conversion report
+# quotes the source export verbatim.
+*.har
+*.trace
+trace.zip
+/reports/
+/test-results/
+/playwright-report/
+/videos/
+/screenshots/
+
+# Node
+node_modules/
+npm-debug.log*
+*.tsbuildinfo
+
+# Playwright leftovers not already covered above.
+/blob-report/
+/playwright/.cache/
+
+# Editor and operating system droppings.
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp

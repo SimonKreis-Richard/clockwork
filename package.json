@@ -1,0 +1,31 @@
+{
+  "name": "clockwork",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Clockwork: a Playwright engine that replays declarative test blueprints, binding every element to the visible label a person reads rather than to a stored selector, and pausing for a human when reality has moved.",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "selftest": "playwright test --config playwright.selftest.config.ts",
+    "check": "npm run typecheck && npm run selftest",
+    "auth": "tsx tools/capture-session.ts",
+    "test": "playwright test",
+    "ui": "playwright test --ui",
+    "test:one": "playwright test -g",
+    "report": "tsx tools/report.ts",
+    "convert": "tsx tools/convert-iqp.ts",
+    "record": "playwright codegen",
+    "install:browsers": "playwright install chromium"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@types/node": "^22.10.0",
+    "dotenv": "^16.4.7",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "yaml": "^2.6.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
